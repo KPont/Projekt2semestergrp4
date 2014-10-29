@@ -1,0 +1,57 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package projekt2sem;
+
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
+/**
+ *
+ * @author Kasper
+ */
+public class Controller {
+    Kalender kal = new Kalender();
+    DefaultListModel monthModel = new DefaultListModel();
+    DefaultListModel daysModel = new DefaultListModel();
+    DefaultListModel yearsModel = new DefaultListModel();
+    
+    public DefaultListModel getMonths(){
+        for(int i = 0; i < kal.maaned().size(); i++){
+            monthModel.addElement(kal.dage().get(i));
+        }
+        return monthModel;
+    }
+    public DefaultListModel getDays(){
+        for(int i = 0; i < kal.dage().size(); i++){
+            daysModel.addElement(kal.dage().get(i));
+        }
+        return daysModel;
+    }
+    public DefaultListModel getYears(){
+        for(int i = 0; i < kal.aar().size(); i++){
+            yearsModel.addElement(kal.aar().get(i));
+        }
+        return yearsModel;
+    }
+    public boolean dateError(Object cDay, Object cMonth, Object cYears){
+        ArrayList<Integer> uMonths = new ArrayList();
+        uMonths.add(4);
+        uMonths.add(6);
+        uMonths.add(9);
+        uMonths.add(11);
+        
+        if((int)cMonth == 2 && (int)cDay > 28){
+            return true;
+        }
+        else if(uMonths.contains((int)cMonth) && (int)cDay > 30){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
