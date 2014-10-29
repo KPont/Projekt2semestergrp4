@@ -1,0 +1,53 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package projekt2sem;
+
+/**
+ *
+ * @author Alex
+ */
+public class Resource 
+{
+    private int rno;
+    private String rName;
+    private int qua;
+    
+    public Resource(int rno, String rName, int qua)
+    {
+        this.rno = rno;
+        this.rName = rName;
+        this.qua = qua;
+    }
+
+    public int getRno() {
+        return rno;
+    }
+
+    public void setRno(int rno) {
+        this.rno = rno;
+    }
+
+    public String getrName() {
+        return rName;
+    }
+
+    public void setrName(String rName) {
+        this.rName = rName;
+    }
+
+    public int getQua() {
+        return qua;
+    }
+
+    public void setQua(int qua) {
+        this.qua = qua;
+    }
+    public String toString()
+	  {
+	    return rno + " " + rName + " " + qua;
+	  }
+}
