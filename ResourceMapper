@@ -1,0 +1,52 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package projekt2sem.DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import projekt2sem.Resource;
+
+/**
+ *
+ * @author Alex
+ */
+public class ResourceMapper 
+{
+    public ArrayList getAllResource (int rno, Connection con)
+    {
+        ArrayList <Resource> rArray = new ArrayList();
+        Resource r = null;
+        String SQLString =
+                "select * "
+                + "from resources";
+                
+        PreparedStatement statement = null;
+        
+        try {
+            statement = con.prepareStatement(SQLString);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                r = new Resource 
+                       (rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3));
+                
+                rArray.add(r);
+            }
+        } catch (Exception e) {
+            System.out.println("Fail in ResourceMapper - getAllResource");
+            System.out.println(e.getMessage());
+        }
+        
+        return rArray;
+    }
+    
+    
+    
+}
