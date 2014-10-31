@@ -1,0 +1,88 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import org.junit.After;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import projekt2sem.DB.ResourceMapper;
+import projekt2sem.Resource;
+
+/**
+ *
+ * @author Alex
+ */
+public class ResourceMapperTest {
+    
+    ResourceMapper rm;
+    Connection con;
+    String pw = "cphal156";
+    String id = "cphal156";
+    
+    public ResourceMapperTest() {
+    }
+    
+    
+    
+    @Before
+    public void setUp() 
+    {
+        getConnection();
+        Fixture.setUpResource(con);
+        rm = new ResourceMapper();
+    }
+    
+    @After
+    public void tearDown() 
+    {
+        releaseConnection();
+    }
+    
+    @Test
+    public void testGetAllResource()
+    {
+        ArrayList<Resource> rArray = rm.getAllResource(con);
+        
+        assertTrue (rArray.size()==3);
+    }
+    
+    @Test
+    public void testGetAllQty()
+    {
+        ArrayList<Resource> rArray = rm.getAllqty(con);
+        
+        assertTrue (rArray.size()==3);
+    }
+
+    //=== Connection specifics
+    private void getConnection() {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            con = DriverManager.getConnection(
+                    "jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat", id, pw);
+        } catch (Exception e) {
+            System.out.println("fail in getConnection()");
+            System.out.println(e);
+        }
+    }
+    
+    //=== Connection specifics
+    public void releaseConnection() {
+        try {
+            con.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+}
