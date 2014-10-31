@@ -1,0 +1,51 @@
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Alex
+ */
+public class Fixture 
+{
+    public static void setUpResource(Connection con){
+       try {
+
+            Statement st = con.createStatement();
+
+            // start transaction
+            con.setAutoCommit(false);
+
+            // create table
+
+           st.addBatch("delete from resources");
+            
+            // insert tuples
+            
+            String insert = "insert into resources values ";
+            st.addBatch(insert + "(100, 'plade', 650)");
+            st.addBatch(insert + "(200, 'Stang', 750)");
+            st.addBatch(insert + "(300, 'Stige', 300)");
+            int[] opcounts = st.executeBatch();
+           
+            // end transaction
+            con.commit();
+            
+} catch (Exception e) {
+            try {
+                con.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println("Fail in Fixture.setup()");
+            System.out.println(e.getMessage());
+        }
+    }
+}
