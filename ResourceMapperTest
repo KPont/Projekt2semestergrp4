@@ -45,19 +45,40 @@ public class ResourceMapperTest {
     }
     
     @Test
+    public void getResourceMatch ()
+    {
+        Resource r = rm.getResource(100, con);
+        
+        assertTrue("GetResourceMatch failed1", r != null);
+        assertTrue("GetResourceMatch failed2", r.getRno()== 100);
+    }
+    
+    @Test
+    public void getResourceNoMatch ()
+    {
+        Resource r = rm.getResource(108, con);
+        
+        assertTrue("GetResourceNoMatc failed", r == null);
+    }
+    
+    @Test
     public void testGetAllResource()
     {
         ArrayList<Resource> rArray = rm.getAllResource(con);
         
-        assertTrue (rArray.size()==3);
+        assertTrue (rArray.size()==4);
     }
     
     @Test
-    public void testGetAllQty()
+    public void testNedskrivResource()
     {
-        ArrayList<Resource> rArray = rm.getAllqty(con);
+        Resource r1 = new Resource(300, "Stige", 300);
+        boolean nedskrivOK = rm.nedskrivResource(r1, 100, con);
         
-        assertTrue (rArray.size()==3);
+        Resource r2 = rm.getResource(300, con);
+        
+        assertTrue("NedskrivResource failed1", nedskrivOK);
+        assertTrue("NedskrivResource failed2", r2.getQua()==200);
     }
 
     //=== Connection specifics
@@ -82,7 +103,4 @@ public class ResourceMapperTest {
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
