@@ -33,6 +33,7 @@ public class Fixture
             st.addBatch(insert + "(100, 'plade', 650)");
             st.addBatch(insert + "(200, 'Stang', 750)");
             st.addBatch(insert + "(300, 'Stige', 300)");
+            st.addBatch(insert + "(400, 'Skruer', 200)");
             int[] opcounts = st.executeBatch();
            
             // end transaction
